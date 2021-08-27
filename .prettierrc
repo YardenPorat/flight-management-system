@@ -1,0 +1,14 @@
+{
+  "printWidth": 120,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "endOfLine": "auto",
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ]
+}
