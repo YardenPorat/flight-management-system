@@ -2,29 +2,21 @@ const config = require('config');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-
 const dbConfig = config.get('db');
 const scale = config.get('scale');
+const { resetDb } = require('./utils');
 
 const knex = require('./knex-connector');
 const db = knex(dbConfig);
 
 async function init() {
-    await resetDb();
+    await resetDb(db);
     const totalCountries = await generateCountries();
     await generateUsersAndCustomers();
     await generateAirlines(totalCountries);
     const totalFlights = await generateFlights(totalCountries);
     await generateTickets(totalFlights);
     process.exit();
-}
-
-async function resetDb() {
-    try {
-        await db.raw(`call sp_delete_all();`);
-    } catch (err) {
-        console.log('Could not reset db\n' + err);
-    }
 }
 
 const randomDate = () => {
