@@ -2,12 +2,9 @@ const config = require('config');
 const { expect } = require('chai');
 const { resetDb } = require('../db-generator/utils');
 const AirlineDriver = require('../dao/airline-dao');
+const db = require('../db-generator/test-db');
 
 describe('test airline user dao', () => {
-    const dbConfig = config.get('test-db');
-    const knex = require('../db-generator/knex-connector');
-    const db = knex(dbConfig);
-
     const airlineDriver = new AirlineDriver(db);
 
     beforeEach(async function () {
@@ -34,9 +31,6 @@ describe('test airline user dao', () => {
 
         `.trim()
         );
-        after(async function () {
-            await db.destroy();
-        });
     });
     it('insert flight', async function () {
         const newId = await airlineDriver.insertFlight({

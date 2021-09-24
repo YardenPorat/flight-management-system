@@ -3,17 +3,10 @@ const { expect } = require('chai');
 const { resetDb } = require('../db-generator/utils');
 const UserDriver = require('../dao/user-dao');
 const { sqlDate } = require('../dao/utils');
+const db = require('../db-generator/test-db');
 
 describe('test regular user dao', () => {
-    const dbConfig = config.get('test-db');
-    const knex = require('../db-generator/knex-connector');
-    const db = knex(dbConfig);
-
     const userDriver = new UserDriver(db);
-
-    after(async function () {
-        await db.destroy();
-    });
 
     beforeEach(async function () {
         await resetDb(db);

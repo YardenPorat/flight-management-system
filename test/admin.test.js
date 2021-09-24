@@ -6,13 +6,10 @@ chai.use(chaiAsPromised);
 
 const { resetDb } = require('../db-generator/utils');
 const AdminDriver = require('../dao/admin-dao');
-const { it, describe } = require('mocha');
+const db = require('../db-generator/test-db');
 const { sqlDate } = require('../dao/utils');
 
 describe('test admin user dao', () => {
-    const dbConfig = config.get('test-db');
-    const knex = require('../db-generator/knex-connector');
-    const db = knex(dbConfig);
     adminDriver = new AdminDriver(db);
     beforeEach(async function () {
         await resetDb(db);
@@ -59,9 +56,6 @@ describe('test admin user dao', () => {
         );
     });
 
-    after(async function () {
-        await db.destroy();
-    });
     it('insert airline', async function () {
         const newId = await adminDriver.insertAirline({
             airlineName: 'Elal',

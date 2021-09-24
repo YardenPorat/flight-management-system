@@ -2,11 +2,9 @@ const config = require('config');
 const { expect } = require('chai');
 const { resetDb } = require('../db-generator/utils');
 const AnonymousDriver = require('../dao/anonymous-dao');
+const db = require('../db-generator/test-db');
 
 describe('test anonymous user dao', () => {
-    const dbConfig = config.get('test-db');
-    const knex = require('../db-generator/knex-connector');
-    const db = knex(dbConfig);
     const anonymousDriver = new AnonymousDriver(db);
 
     beforeEach(async function () {
@@ -34,10 +32,6 @@ describe('test anonymous user dao', () => {
         select * from sp_insert_ticket(1, 2);
         `.trim()
         );
-    });
-
-    after(async function () {
-        await db.destroy();
     });
 
     describe('sp_get', function () {
