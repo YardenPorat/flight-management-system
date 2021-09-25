@@ -26,7 +26,7 @@
       "database": "aeroflight-test"
     }
   },
-  "client-actions": {
-    "db-url": "mongodb+srv://admin:admin@cluster0.pmczr.mongodb.net/aeroflight"
+  "mongo": {
+    "url": "mongodb+srv://admin:admin@cluster0.pmczr.mongodb.net/aeroflight"
   }
 }

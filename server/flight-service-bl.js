@@ -1,6 +1,8 @@
 const anonymousDao = require('../dao/anonymous-dao');
 const adminDao = require('../dao/admin-dao');
 const airlineDao = require('../dao/airline-dao');
+const { logAction } = require('./action-logger');
+const { ACTIONS } = require('./const');
 
 async function deleteAirline(data) {
     const { id } = JSON.parse(data);
@@ -8,6 +10,7 @@ async function deleteAirline(data) {
     if (!airlineExist) {
         return new Error(`Airline id doesn't exist`);
     }
+    await logAction(ACTIONS.deleteAirline, data);
     const result = await adminDao.deleteAirline(id);
     return result;
 }
@@ -18,6 +21,7 @@ async function deleteCustomer(data) {
     if (!customerExist) {
         return new Error(`Customer id doesn't exist`);
     }
+    await logAction(ACTIONS.deleteAirline, data);
     const result = await adminDao.deleteCustomer(id);
     return result;
 }
@@ -28,6 +32,7 @@ async function deleteFlight(data) {
     if (!flightExist) {
         return new Error(`Flight id doesn't exist`);
     }
+    await logAction(ACTIONS.deleteFlight, data);
     const result = await airlineDao.deleteFlight(id);
     return result;
 }
@@ -37,6 +42,7 @@ async function deleteTicket(data) {
     if (!ticketExist) {
         return new Error(`Ticket id doesn't exist`);
     }
+    await logAction(ACTIONS.deleteTicket, data);
     const result = await adminDao.deleteTicket(id);
     return result;
 }
@@ -177,16 +183,19 @@ async function getUserByUsername(data) {
 async function insertAirline(data) {
     const parsed = JSON.parse(data);
     const result = await adminDao.insertAirline(parsed);
+    await logAction(ACTIONS.insertAirline, data);
     return result;
 }
 async function insertCustomer(data) {
     const customer = JSON.parse(data);
+    await logAction(ACTIONS.insertCustomer, data);
     const newCustomer = await adminDao.insertCustomer(customer);
     return newCustomer;
 }
 
 async function insertFlight(data) {
     const parsed = JSON.parse(data);
+    await logAction(ACTIONS.insertFlight, data);
     const result = await airlineDao.insertFlight(parsed);
     return result;
 }
@@ -197,6 +206,7 @@ async function insertTicket(data) {
     if (!flightExist) {
         return new Error(`Flight id doesn't exist`);
     }
+    await logAction(ACTIONS.insertTicket, data);
     const result = await airlineDao.insertTicket(flightId, customerId);
     return result;
 }
@@ -214,6 +224,7 @@ async function updateAirline(data) {
     if (!airlineExist) {
         return new Error(`Airline doesn't exist`);
     }
+    await logAction(ACTIONS.updateAirline, data);
     const result = await airlineDao.updateAirline(parsed);
     return result.rows[0];
 }
@@ -224,6 +235,7 @@ async function updateCustomer(data) {
     if (!customerExist) {
         return new Error(`Customer id doesn't exist`);
     }
+    await logAction(ACTIONS.updateCustomer, data);
     const updatedCustomer = await adminDao.updateCustomer(customer);
     return updatedCustomer;
 }
@@ -234,6 +246,7 @@ async function updateFlight(data) {
     if (!flightExist) {
         return new Error(`Flight id doesn't exist`);
     }
+    await logAction(ACTIONS.updateFlight, data);
     const updatedFlight = await airlineDao.updateFlight(parsed);
     return updatedFlight;
 }
