@@ -1,12 +1,9 @@
-const config = require('config');
 const { expect } = require('chai');
 const { resetDb } = require('../db-generator/utils');
-const AirlineDriver = require('../dao/airline-dao');
+const airlineDriver = require('../dao/airline-dao');
 const db = require('../db-generator/test-db');
 
 describe('test airline user dao', () => {
-    const airlineDriver = new AirlineDriver(db);
-
     beforeEach(async function () {
         await resetDb(db);
         await db.raw(
@@ -32,7 +29,7 @@ describe('test airline user dao', () => {
         `.trim()
         );
     });
-    it('insert flight', async function () {
+    it('insertFlight', async function () {
         const newId = await airlineDriver.insertFlight({
             airlineId: 1,
             departureTime: '2020-09-13',
@@ -44,7 +41,7 @@ describe('test airline user dao', () => {
         expect(newId).to.equal('4');
     });
 
-    it('delete flight', async function () {
+    it('deleteFlight', async function () {
         let flights = await airlineDriver.getAllFlights();
         expect(flights.length).to.equal(3);
         const deletedCount = await airlineDriver.deleteFlight(3);
@@ -53,21 +50,22 @@ describe('test airline user dao', () => {
         expect(flights.length).to.equal(2);
     });
 
-    it('insert ticket', async function () {
+    it('insertTicket', async function () {
         const newTicketId = await airlineDriver.insertTicket(1, 2);
         expect(newTicketId).to.equal(2);
     });
-    it('update ticket', async function () {
+
+    it('getTicketById', async function () {
         await airlineDriver.updateTicket(1, 1, 2);
         const ticket = await airlineDriver.getTicketById(1);
         expect(ticket['customer_id']).to.equal('2');
     });
-    it('update airline', async function () {
+    it('getAirlineById', async function () {
         await airlineDriver.updateAirline({ id: 1, name: 'New name', countryId: 2, userId: 1 });
         const airline = await airlineDriver.getAirlineById(1);
         expect(airline.name).to.equal('New name');
     });
-    it('update flight', async function () {
+    it('updateFlight', async function () {
         await airlineDriver.updateFlight({
             id: 1,
             airlineId: 1,

@@ -1,16 +1,14 @@
-const config = require('config');
 const chai = require('chai');
 const { expect } = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 
 const { resetDb } = require('../db-generator/utils');
-const AdminDriver = require('../dao/admin-dao');
 const db = require('../db-generator/test-db');
 const { sqlDate } = require('../dao/utils');
+const adminDriver = require('../dao/admin-dao');
 
 describe('test admin user dao', () => {
-    adminDriver = new AdminDriver(db);
     beforeEach(async function () {
         await resetDb(db);
         await db.raw(
@@ -68,7 +66,7 @@ describe('test admin user dao', () => {
         const newId = await adminDriver.insertCountry('NewCountry');
         expect(newId).to.equal(5);
     });
-    it('insert customer', async function () {
+    it('insertCustomer', async function () {
         const newId = await adminDriver.insertCustomer({
             firstName: 'fname',
             lastName: 'lname',
@@ -181,32 +179,33 @@ describe('test admin user dao', () => {
         });
         expect(newId).to.equal(4);
     });
-    it('upsert existing user', async function () {
+    it('upsertUser', async function () {
         const newUsername = 'abcd';
         const newId = await adminDriver.upsertUser(newUsername, '123123', '11@g.com');
         expect(newId).to.equal('0');
         const user = await adminDriver.getUserById(1);
         expect(user['name']).to.equal(newUsername);
     });
-    it('upsert new user', async function () {
+    it('upsertUser', async function () {
         const newId = await adminDriver.upsertUser('someName', 'password', 'zzz@zzz.com');
         expect(newId).to.equal('8');
     });
-    it('get all countries', async () => {
+
+    it('getAllCountries', async () => {
         const result = await adminDriver.getAllCountries();
         const countries = result.map(({ name }) => name);
         expect(countries).to.include('UAE');
         expect(countries).to.include('Israel');
         expect(countries).to.include('USA');
     });
-    it('get all customers', async () => {
+    it('getAllCustomers', async () => {
         const result = await adminDriver.getAllCustomers();
         const customers = result.map(({ first_name }) => first_name);
         expect(customers).to.include('Customer1');
         expect(customers).to.include('Customer2');
         expect(customers).to.include('Customer3');
     });
-    it('get all airlines', async () => {
+    it('getAllAirlines', async () => {
         const result = await adminDriver.getAllAirlines();
         const airlines = result.map(({ name }) => name);
         expect(airlines).to.include('Airline1');
@@ -252,7 +251,7 @@ describe('test admin user dao', () => {
         const countries = await adminDriver.getAllCountries();
         expect(countries.length).to.equal(0);
     });
-    it('delete airline', async function () {
+    it('deleteAirline', async function () {
         const deletedCount = await adminDriver.deleteAirline(3);
         expect(deletedCount).to.equal(1);
     });
@@ -262,27 +261,28 @@ describe('test admin user dao', () => {
         const countries = await adminDriver.getAllCountries();
         expect(countries.length).to.equal(3);
     });
-    it('delete customer', async function () {
+    it('deleteCustomer', async function () {
         const deletedCount = await adminDriver.deleteCustomer(3);
         expect(deletedCount).to.equal(1);
         const customers = await adminDriver.getAllCustomers();
         expect(customers.length).to.equal(2);
     });
 
-    it('delete ticket', async function () {
+    it('deleteTicket', async function () {
         const deletedCount = await adminDriver.deleteTicket(3);
         expect(deletedCount).to.equal(1);
         const tickets = await adminDriver.getAllTickets();
         expect(tickets.length).to.equal(2);
     });
-    it('delete user', async function () {
+
+    it('deleteUser', async function () {
         const deletedCount = await adminDriver.deleteUser(7);
         expect(deletedCount).to.equal(1);
         const users = await adminDriver.getAllUsers();
         expect(users.length).to.equal(6);
     });
 
-    it('update country', async function () {
+    it('updateCountry', async function () {
         const id = 4;
         const name = 'United Kingdom';
         await adminDriver.updateCountry(id, name);

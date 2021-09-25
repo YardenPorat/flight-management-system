@@ -1,13 +1,10 @@
-const config = require('config');
 const { expect } = require('chai');
 const { resetDb } = require('../db-generator/utils');
-const UserDriver = require('../dao/user-dao');
+const userDriver = require('../dao/user-dao');
 const { sqlDate } = require('../dao/utils');
 const db = require('../db-generator/test-db');
 
 describe('test regular user dao', () => {
-    const userDriver = new UserDriver(db);
-
     beforeEach(async function () {
         await resetDb(db);
         await db.raw(
