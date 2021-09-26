@@ -1,4 +1,4 @@
-const db = require('../db-generator/test-db');
+const db = require('../db-generator/db');
 const { insertCustomer, updateCustomer, upsertCustomer } = require('./shared-functions');
 const anonymousDao = require('./anonymous-dao');
 const airlineDao = require('./airline-dao');

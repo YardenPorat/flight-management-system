@@ -1,4 +1,4 @@
-const db = require('../db-generator/test-db');
+const db = require('../db-generator/db');
 
 const { sqlDate } = require('./utils');
 

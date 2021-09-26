@@ -1,4 +1,4 @@
-const db = require('../db-generator/test-db');
+const db = require('../db-generator/db');
 
 async function insertCustomer({ firstName, lastName, address, phoneNo, creditCardNo, userId }) {
     const result = await db.raw(

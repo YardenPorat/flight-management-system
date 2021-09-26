@@ -1,5 +1,5 @@
 const { sqlDate } = require('./utils');
-const db = require('../db-generator/test-db');
+const db = require('../db-generator/db');
 const { getFlightById, getTicketById, getAirlineById, getAllFlights } = require('./anonymous-dao');
 
 async function updateAirline({ id, name, countryId, userId }) {
