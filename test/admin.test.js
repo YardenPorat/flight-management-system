@@ -21,11 +21,11 @@ describe('test admin user dao', () => {
         );
         await db.raw(
             `
-        select * from sp_insert_user('User1', '111111','11@g.com');
-        select * from sp_insert_user('User2', '222222','22@g.com');
-        select * from sp_insert_user('User3', '333333','33@g.com');
-        select * from sp_insert_user('User4', '444444','44@g.com');
-        select * from sp_insert_user('User5', '555555','5@g.com');
+        select * from sp_insert_user('user1', '111111','11@g.com');
+        select * from sp_insert_user('user2', '222222','22@g.com');
+        select * from sp_insert_user('user3', '333333','33@g.com');
+        select * from sp_insert_user('user4', '444444','44@g.com');
+        select * from sp_insert_user('user5', '555555','5@g.com');
         `.trim()
         );
         await db.raw(
@@ -232,7 +232,7 @@ describe('test admin user dao', () => {
         const users = await adminDriver.getAllUsers();
         expect(users.length).to.equal(7);
         expect(users[0]['id']).to.equal('1');
-        expect(users[0]['name']).to.equal('User1');
+        expect(users[0]['name']).to.equal('user1');
         expect(users[0]['password']).to.equal('111111');
         expect(users[0]['email']).to.equal('11@g.com');
     });

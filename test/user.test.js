@@ -17,11 +17,11 @@ describe('test regular user dao', () => {
         );
         await db.raw(
             `
-        select * from sp_insert_user('User1', '111111','11@g.com');
-        select * from sp_insert_user('User2', '222222','22@g.com');
-        select * from sp_insert_user('User3', '333333','33@g.com');
-        select * from sp_insert_user('User4', '444444','44@g.com');
-        select * from sp_insert_user('User5', '555555','5@g.com');
+        select * from sp_insert_user('user1', '111111','11@g.com');
+        select * from sp_insert_user('user2', '222222','22@g.com');
+        select * from sp_insert_user('user3', '333333','33@g.com');
+        select * from sp_insert_user('user4', '444444','44@g.com');
+        select * from sp_insert_user('user5', '555555','5@g.com');
         `.trim()
         );
         await db.raw(
