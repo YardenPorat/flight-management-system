@@ -63,8 +63,9 @@ async function generateUsersAndCustomers() {
                 );
             }
         }
-        await db.raw(`select * from sp_insert_user('yarden', 'admin', 'yardenporat@gmail.com', 'admin');`);
+        await db.raw(`select * from sp_insert_user('admin', 'admin', 'yardenporat@gmail.com', 'admin');`);
         await db.raw(`select * from sp_insert_user('airline', 'airline', 'airline@gmail.com', 'airline');`);
+        await db.raw(`select * from sp_insert_user('customer', 'customer', 'customer@gmail.com', 'customer');`);
         console.log('Added users and customers');
     } catch (err) {
         console.log('Could not create users and customers:\n', err);

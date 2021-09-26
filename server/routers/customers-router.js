@@ -1,10 +1,11 @@
 const { Router } = require('express');
+const { requireAuth } = require('../middleware/auth-middleware');
 const anonymousController = require('../controllers/anonymous-controller');
-// const adminController = require('../controllers/admin-controller');
+const customerController = require('../controllers/customer-controller');
 const router = Router();
 
-// router.get('/airlines/:id', anonymousController.getAirlineById);
-// router.get('/airlines', anonymousController.getAllAirlines);
+router.get('/:id', customerController.getCustomerById);
 router.post('/', anonymousController.insertCustomer);
+router.put('/', requireAuth, customerController.updateCustomer);
 
 module.exports = router;

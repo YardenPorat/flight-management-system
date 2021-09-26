@@ -8,6 +8,7 @@ const airlineRoutes = require('./routers/airlines-router');
 const customerRoutes = require('./routers/customers-router');
 const flightRoutes = require('./routers/flights-router');
 const userRoutes = require('./routers/users-router');
+const ticketsRoutes = require('./routers/tickets-router');
 const countriesRoutes = require('./routers/countries-router');
 const mongo = config.get('mongo');
 
@@ -33,3 +34,4 @@ app.use('/customers', customerRoutes);
 app.use('/users', userRoutes);
 app.use('/flights', flightRoutes);
 app.use('/countries', countriesRoutes);
+app.use('/tickets', ticketsRoutes);
