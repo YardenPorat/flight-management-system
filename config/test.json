@@ -26,7 +26,7 @@
       "database": "aeroflight-test"
     }
   },
-  "mongo": {
-    "url": "mongodb+srv://admin:admin@cluster0.pmczr.mongodb.net/aeroflight"
+  "jwt": {
+    "secret": "test key"
   }
 }
