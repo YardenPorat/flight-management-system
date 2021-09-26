@@ -4,7 +4,7 @@ const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 
 const { resetDb } = require('../db-generator/utils');
-const db = require('../db-generator/test-db');
+const db = require('../db-generator/db');
 const { sqlDate } = require('../dao/utils');
 const adminDriver = require('../dao/admin-dao');
 

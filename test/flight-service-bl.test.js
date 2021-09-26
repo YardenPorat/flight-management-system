@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const bl = require('../server/flight-service-bl');
 const { sqlDate } = require('../dao/utils');
 const { resetDb } = require('../db-generator/utils');
-const db = require('../db-generator/test-db');
+const db = require('../db-generator/db');
 
 describe('Flight service BL', function () {
     beforeEach(async function () {

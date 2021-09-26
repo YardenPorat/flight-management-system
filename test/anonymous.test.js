@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { resetDb } = require('../db-generator/utils');
 const anonymousDriver = require('../dao/anonymous-dao');
-const db = require('../db-generator/test-db');
+const db = require('../db-generator/db');
 
 describe('test anonymous user dao', () => {
     beforeEach(async function () {

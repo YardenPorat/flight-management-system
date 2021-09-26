@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const { resetDb } = require('../db-generator/utils');
 const userDriver = require('../dao/user-dao');
 const { sqlDate } = require('../dao/utils');
-const db = require('../db-generator/test-db');
+const db = require('../db-generator/db');
 
 describe('test regular user dao', () => {
     beforeEach(async function () {

@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { resetDb } = require('../db-generator/utils');
 const airlineDriver = require('../dao/airline-dao');
-const db = require('../db-generator/test-db');
+const db = require('../db-generator/db');
 
 describe('test airline user dao', () => {
     beforeEach(async function () {
