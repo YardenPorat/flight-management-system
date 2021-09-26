@@ -1,6 +1,6 @@
 {
   "scale": {
-    "customers": 10,
+    "customers": 100,
     "airlines": 10,
     "flights_per_airline": 3,
     "tickets_per_customer": 1,
@@ -14,16 +14,6 @@
       "user": "postgres",
       "password": "123",
       "database": "postgres"
-    }
-  },
-  "test-db": {
-    "client": "pg",
-    "version": "13",
-    "connection": {
-      "host": "127.0.0.1",
-      "user": "postgres",
-      "password": "123",
-      "database": "aeroflight-test"
     }
   },
   "client-actions": {
