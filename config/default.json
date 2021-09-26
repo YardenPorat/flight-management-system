@@ -1,6 +1,7 @@
 {
   "scale": {
-    "customers": 100,
+    "users": 100,
+    "customers": 50,
     "airlines": 10,
     "flights_per_airline": 3,
     "tickets_per_customer": 1,

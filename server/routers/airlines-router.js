@@ -4,8 +4,8 @@ const adminController = require('../controllers/admin-controller');
 const { requireAuth } = require('../middleware/auth-middleware');
 const router = Router();
 
-router.get('/airlines/:id', anonymousController.getAirlineById);
-router.get('/airlines', anonymousController.getAllAirlines);
-router.post('/airlines', requireAuth, adminController.insertAirline);
+router.get('/:id', anonymousController.getAirlineById);
+router.get('/', anonymousController.getAllAirlines);
+router.post('/', requireAuth, adminController.insertAirline);
 
 module.exports = router;

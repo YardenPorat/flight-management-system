@@ -48,18 +48,23 @@ async function generateCountries() {
 
 async function generateUsersAndCustomers() {
     try {
-        const response = await axios.get(`https://randomuser.me/api/?results=${scale.customers}&seed=bbb`);
+        const response = await axios.get(`https://randomuser.me/api/?results=${scale.users}&seed=bbb`);
+
+        let i = 0;
         for (const { name, login, email, location, phone } of response.data.results) {
             const result = await db.raw(
                 `select * from sp_insert_user('${login.username}', '${login.password}', '${email}');`
             );
-            const userId = result.rows[0]['sp_insert_user'];
-            await db.raw(
-                `select * from sp_insert_customer('${name.first}', '${name.last}', '${location.city}', '${phone}', '${login.uuid}', ${userId});`
-            );
+            if (++i <= scale.customers) {
+                const userId = result.rows[0]['sp_insert_user'];
+
+                await db.raw(
+                    `select * from sp_insert_customer('${name.first}', '${name.last}', '${location.city}', '${phone}', '${login.uuid}', ${userId});`
+                );
+            }
         }
-        console.log('Added users and customers');
         await db.raw(`select * from sp_insert_user('yarden', 'admin', 'yardenporat@gmail.com');`);
+        console.log('Added users and customers');
     } catch (err) {
         console.log('Could not create users and customers:\n', err);
     }

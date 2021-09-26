@@ -4,7 +4,11 @@ const config = require('config');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const loginRoutes = require('./routers/login-router');
-const airlineRoutes = require('./routers/airline-router');
+const airlineRoutes = require('./routers/airlines-router');
+const customerRoutes = require('./routers/customers-router');
+const flightRoutes = require('./routers/flights-router');
+const userRoutes = require('./routers/users-router');
+const countriesRoutes = require('./routers/countries-router');
 const mongo = config.get('mongo');
 
 const app = express();
@@ -24,4 +28,8 @@ mongoose
 // app.get('/', (req, res) => res.render('home'));
 // app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
 app.use(loginRoutes);
-app.use(airlineRoutes);
+app.use('/airlines', airlineRoutes);
+app.use('/customers', customerRoutes);
+app.use('/users', userRoutes);
+app.use('/flights', flightRoutes);
+app.use('/countries', countriesRoutes);
