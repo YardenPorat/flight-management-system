@@ -3,6 +3,7 @@ const adminDao = require('../dao/admin-dao');
 const airlineDao = require('../dao/airline-dao');
 const { logAction } = require('./action-logger');
 const { ACTIONS } = require('./const');
+const { updateUser } = require('../dao/admin-dao');
 
 async function deleteAirline(data) {
     const { id } = JSON.parse(data);
@@ -184,8 +185,15 @@ async function insertAirline(data) {
     const parsed = JSON.parse(data);
     const result = await adminDao.insertAirline(parsed);
     await logAction(ACTIONS.insertAirline, data);
+    setUserRole(JSON.stringify({ userId: parsed.userId, role: 'airline' }));
     return result;
 }
+async function setUserRole(data) {
+    const { userId, role } = JSON.parse(data);
+    const user = await anonymousDao.getUserById(userId);
+    updateUser({ ...user, role });
+}
+
 async function insertCustomer(data) {
     const customer = JSON.parse(data);
     await logAction(ACTIONS.insertCustomer, data);

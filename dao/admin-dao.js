@@ -45,9 +45,9 @@ async function insertUser(name, password, email) {
     return result['rows'][0]['sp_insert_user'];
 }
 
-async function updateUser({ id, username, password, email }) {
+async function updateUser({ id, username, password, email, role }) {
     validatePassword(password);
-    await db.raw(`call sp_update_user('${id}', '${username}', '${password}', '${email}');`);
+    await db.raw(`call sp_update_user('${id}', '${username}', '${password}', '${email}', '${role}');`);
 }
 async function updateCountry(id, name) {
     await db.raw(`call sp_update_country(${id}, '${name}');`);
