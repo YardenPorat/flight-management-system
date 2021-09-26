@@ -11,9 +11,9 @@ describe('test airline user dao', () => {
         select * from sp_insert_country('Israel');
         select * from sp_insert_country('USA');
         select * from sp_insert_country('UAE');
-        select * from sp_insert_user('user1', '11','11@g.com');
-        select * from sp_insert_user('user2', '22','22@g.com');
-        select * from sp_insert_user('user3', '33','33@g.com');
+        select * from sp_insert_user('user1', '11','11@g.com', 'customer');
+        select * from sp_insert_user('user2', '22','22@g.com', 'customer');
+        select * from sp_insert_user('user3', '33','33@g.com', 'customer');
         select * from sp_insert_customer('Customer1','Dan', 'Tel Aviv','123', '123', 1);
         select * from sp_insert_customer('Customer2','Ben', 'Tel Aviv','1123', '1232', 2);
         select * from sp_insert_customer('Customer3','Avi', 'Tel Aviv','11231', '12321', 3);

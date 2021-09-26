@@ -21,11 +21,13 @@ describe('test admin user dao', () => {
         );
         await db.raw(
             `
-        select * from sp_insert_user('user1', '111111','11@g.com');
-        select * from sp_insert_user('user2', '222222','22@g.com');
-        select * from sp_insert_user('user3', '333333','33@g.com');
-        select * from sp_insert_user('user4', '444444','44@g.com');
-        select * from sp_insert_user('user5', '555555','5@g.com');
+        select * from sp_insert_user('user1', '111111','11@g.com', 'customer');
+        select * from sp_insert_user('user2', '222222','22@g.com', 'customer');
+        select * from sp_insert_user('user3', '333333','33@g.com', 'customer');
+        select * from sp_insert_user('user4', '444444','44@g.com', 'customer');
+        select * from sp_insert_user('user5', '555555','5@g.com', 'customer');
+        select * from sp_insert_user('John Doe', 'pw1123','user1@1.com', 'customer');
+        select * from sp_insert_user('Jane Dow', 'pw2123','user2@1.com', 'customer');
         `.trim()
         );
         await db.raw(
@@ -48,8 +50,7 @@ describe('test admin user dao', () => {
         select * from sp_insert_flight('1', 1, 2, '${sqlDate('2021-09-15')}', '${sqlDate('2021-09-16')}', 50);
         select * from sp_insert_ticket(1, 1);
         select * from sp_insert_ticket(1, 2);
-        select * from sp_insert_user('John Doe', 'pw1123','user1@1.com');
-        select * from sp_insert_user('Jane Dow', 'pw2123','user2@1.com');
+
         `.trim()
         );
     });
@@ -124,12 +125,12 @@ describe('test admin user dao', () => {
     });
 
     it('insert user with correct data', async function () {
-        const newId = await adminDriver.insertUser('a', '123456', 'email@email.com');
+        const newId = await adminDriver.insertUser('a', '123456', 'email@email.com', 'customer');
         expect(newId).to.equal('8');
     });
 
     it('insert user with password length lower than 6', async function () {
-        const promise = adminDriver.insertUser('a', 'pw', 'email@email.com');
+        const promise = adminDriver.insertUser('a', 'pw', 'email@email.com', 'customer');
         await expect(promise).to.be.rejectedWith(Error);
     });
 

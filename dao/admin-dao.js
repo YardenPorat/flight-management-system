@@ -39,9 +39,9 @@ async function insertCountry(name) {
     return result['rows'][0]['sp_insert_country'];
 }
 
-async function insertUser(name, password, email) {
+async function insertUser(name, password, email, role) {
     validatePassword(password);
-    const result = await db.raw(`select * from sp_insert_user('${name}', '${password}', '${email}');`);
+    const result = await db.raw(`select * from sp_insert_user('${name}', '${password}', '${email}', '${role}');`);
     return result['rows'][0]['sp_insert_user'];
 }
 
