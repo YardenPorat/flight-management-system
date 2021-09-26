@@ -33,14 +33,14 @@ const randomDate = () => {
 
 async function generateCountries() {
     try {
-        const response = await axios.get(`https://restcountries.eu/rest/v2/all`);
+        const countries = JSON.parse(fs.readFileSync(path.join(__dirname, './data/countries.json')));
 
-        for (const { name } of response.data) {
-            const cleanedName = name.replace(/'/g, '');
+        for (const { name } of countries) {
+            const cleanedName = name.common.replace(/'/g, '');
             await db.raw(`select * from sp_insert_country('${cleanedName}');`);
         }
         console.log('Added countries');
-        return response.data.length;
+        return countries.length;
     } catch (err) {
         console.log('Error inserting countries:\n', err);
     }
@@ -59,6 +59,7 @@ async function generateUsersAndCustomers() {
             );
         }
         console.log('Added users and customers');
+        await db.raw(`select * from sp_insert_user('yarden', 'admin', 'yardenporat@gmail.com');`);
     } catch (err) {
         console.log('Could not create users and customers:\n', err);
     }
