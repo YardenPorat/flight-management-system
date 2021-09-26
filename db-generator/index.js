@@ -90,7 +90,7 @@ const generateFlights = async (totalCountries) => {
     let totalFlights = 0;
     try {
         for (let airlineId = 1; airlineId <= scale.airlines; airlineId++) {
-            const maxFlightsPerAirline = getRandom(1, scale.flights_per_airline);
+            const maxFlightsPerAirline = getRandom(0, scale.flights_per_airline);
             for (let j = 0; j < maxFlightsPerAirline; j++) {
                 const originCountryId = getRandom(1, totalCountries);
                 const destinationCountryId = getRandom(1, totalCountries);

@@ -36,10 +36,9 @@ async function insertTicket(req, res) {
 }
 
 async function deleteTicket(req, res) {
-    const { id } = req.params;
     try {
         isAuthorized(res.locals.token.role, CUSTOMER);
-        const deleteCount = await bl.deleteTicket(JSON.stringify({ id }));
+        const deleteCount = await bl.deleteTicket(JSON.stringify({ id: req.params.id }));
         await res.status(200).json({ deleteCount });
     } catch (err) {
         await res.status(500).json({ message: err.message });

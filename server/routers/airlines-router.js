@@ -9,5 +9,6 @@ router.get('/:id', anonymousController.getAirlineById);
 router.get('/', anonymousController.getAllAirlines);
 router.post('/', requireAuth, adminController.insertAirline);
 router.put('/', requireAuth, airlineController.updateAirline);
+router.delete('/:id', requireAuth, adminController.deleteAirline);
 
 module.exports = router;

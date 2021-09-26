@@ -8,14 +8,16 @@ const requireAuth = (req, res, next) => {
         jwt.verify(token, jwtConfig.secret, (err, decodedToken) => {
             if (err) {
                 console.log(err.message);
-                res.redirect('/login');
+                res.send('Token invalid');
+                // res.redirect('/login');
             } else {
                 res.locals.token = decodedToken;
                 next();
             }
         });
     } else {
-        res.redirect('/login'); // in ajax act differently
+        res.send('Please login');
+        // res.redirect('/login'); // in ajax act differently
     }
 };
 

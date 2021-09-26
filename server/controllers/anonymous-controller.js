@@ -1,9 +1,8 @@
 const bl = require('../flight-service-bl');
 
 async function getAirlineById(req, res) {
-    const id = req.params.id;
     try {
-        const airline = await bl.getAirlineById(JSON.stringify({ id }));
+        const airline = await bl.getAirlineById(JSON.stringify({ id: req.params.id }));
         await res.status(200).json(airline);
     } catch (err) {
         await res.status(500).json({ message: err.message });
@@ -11,9 +10,8 @@ async function getAirlineById(req, res) {
 }
 
 async function getFlightById(req, res) {
-    const id = req.params.id;
     try {
-        const airline = await bl.getFlightById(JSON.stringify({ id }));
+        const airline = await bl.getFlightById(JSON.stringify({ id: req.params.id }));
         await res.status(200).json(airline);
     } catch (err) {
         await res.status(500).json({ message: err.message });
