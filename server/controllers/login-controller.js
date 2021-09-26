@@ -24,4 +24,10 @@ async function login(req, res) {
     }
 }
 
-module.exports = { login };
+async function logout(req, res) {
+    res.cookie('jwt', '', { maxAge: 1 });
+    // res.redirect('/');
+    res.send('Logged out');
+}
+
+module.exports = { login, logout };

@@ -27,7 +27,7 @@ mongoose
 // app.get('*', checkUser);
 // app.get('/', (req, res) => res.render('home'));
 // app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
-app.use(loginRoutes);
+app.use('/auth', loginRoutes);
 app.use('/airlines', airlineRoutes);
 app.use('/customers', customerRoutes);
 app.use('/users', userRoutes);

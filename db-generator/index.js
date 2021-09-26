@@ -53,7 +53,7 @@ async function generateUsersAndCustomers() {
         let i = 0;
         for (const { name, login, email, location, phone } of response.data.results) {
             const result = await db.raw(
-                `select * from sp_insert_user('${login.username}', '${login.password}', '${email}');`
+                `select * from sp_insert_user('${login.username}', '${login.password}', '${email}', 'user');`
             );
             if (++i <= scale.customers) {
                 const userId = result.rows[0]['sp_insert_user'];
@@ -63,7 +63,8 @@ async function generateUsersAndCustomers() {
                 );
             }
         }
-        await db.raw(`select * from sp_insert_user('yarden', 'admin', 'yardenporat@gmail.com');`);
+        await db.raw(`select * from sp_insert_user('yarden', 'admin', 'yardenporat@gmail.com', 'admin');`);
+        await db.raw(`select * from sp_insert_user('airline', 'airline', 'airline@gmail.com', 'airline');`);
         console.log('Added users and customers');
     } catch (err) {
         console.log('Could not create users and customers:\n', err);

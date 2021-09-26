@@ -3,7 +3,7 @@ const db = require('../db-generator/db');
 const { getFlightById, getTicketById, getAirlineById, getAllFlights } = require('./anonymous-dao');
 
 async function updateAirline({ id, name, countryId, userId }) {
-    const result = await db.raw(`select * from sp_update_airline(${id}, '${name}', '${countryId}', ${userId} );`);
+    const result = await db.raw(`select * from sp_update_airline(${id}, '${name}', ${countryId}, ${userId} );`);
     return result;
 }
 
