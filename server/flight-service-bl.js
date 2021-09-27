@@ -41,7 +41,7 @@ async function deleteTicket(data) {
     const { id } = JSON.parse(data);
     const ticketExist = await anonymousDao.getTicketById(id);
     if (!ticketExist) {
-        return new Error(`Ticket id doesn't exist`);
+        throw new Error(`Ticket id doesn't exist`);
     }
     await logAction(ACTIONS.deleteTicket, data);
     const result = await adminDao.deleteTicket(id);

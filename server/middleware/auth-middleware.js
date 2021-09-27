@@ -16,7 +16,7 @@ const requireAuth = (req, res, next) => {
             }
         });
     } else {
-        res.send('Please login');
+        res.status(401).send('Please login');
         // res.redirect('/login'); // in ajax act differently
     }
 };

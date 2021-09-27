@@ -28,8 +28,8 @@ async function getTicketsByCustomerId(req, res) {
 async function insertTicket(req, res) {
     try {
         isAuthorized(res.locals.token.role, CUSTOMER);
-        const flightId = await bl.insertTicket(JSON.stringify(req.body));
-        await res.status(200).json({ flightId });
+        const ticketId = await bl.insertTicket(JSON.stringify(req.body));
+        await res.status(200).json({ flightId: ticketId });
     } catch (err) {
         await res.status(500).json({ message: err.message });
     }

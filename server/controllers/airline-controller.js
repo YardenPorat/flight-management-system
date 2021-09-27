@@ -15,7 +15,7 @@ async function insertFlight(req, res) {
     try {
         isAuthorized(res.locals.token.role, 'airline');
         const flightId = await bl.insertFlight(JSON.stringify(req.body));
-        await res.status(200).json(flightId);
+        await res.status(200).json({ flightId });
     } catch (err) {
         await res.status(500).json({ message: err.message });
     }
