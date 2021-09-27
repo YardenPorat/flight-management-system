@@ -58,7 +58,7 @@ async function isUsernameAvailable(req, res) {
 async function insertCustomer(req, res) {
     try {
         const customerId = await bl.insertCustomer(JSON.stringify(req.body));
-        await res.status(200).json(customerId);
+        await res.status(200).json({ customerId });
     } catch (err) {
         await res.status(500).json({ message: err.message });
     }
