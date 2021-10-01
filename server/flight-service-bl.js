@@ -9,7 +9,7 @@ async function deleteAirline(data) {
     const { id } = JSON.parse(data);
     const airlineExist = await anonymousDao.getAirlineById(id);
     if (!airlineExist) {
-        return new Error(`Airline id doesn't exist`);
+        throw new Error(`Airline id doesn't exist`);
     }
     await logAction(ACTIONS.deleteAirline, data);
     const result = await adminDao.deleteAirline(id);
@@ -20,7 +20,7 @@ async function deleteCustomer(data) {
     const { id } = JSON.parse(data);
     const customerExist = await anonymousDao.getCustomerById(id);
     if (!customerExist) {
-        return new Error(`Customer id doesn't exist`);
+        throw new Error(`Customer id doesn't exist`);
     }
     await logAction(ACTIONS.deleteAirline, data);
     const result = await adminDao.deleteCustomer(id);
@@ -31,7 +31,7 @@ async function deleteFlight(data) {
     const { id } = JSON.parse(data);
     const flightExist = await anonymousDao.getFlightById(id);
     if (!flightExist) {
-        return new Error(`Flight id doesn't exist`);
+        throw new Error(`Flight id doesn't exist`);
     }
     await logAction(ACTIONS.deleteFlight, data);
     const result = await airlineDao.deleteFlight(id);
