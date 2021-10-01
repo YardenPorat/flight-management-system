@@ -71,8 +71,8 @@ describe('test airline user dao', () => {
             airlineId: 1,
             originCountryId: 1,
             destinationCountryId: 2,
-            departureTime: new Date(),
-            landingTime: new Date(),
+            departureTime: '2021-09-10',
+            landingTime: '2021-09-11',
             remainingTickets: 5,
         });
         const flight = await airlineDriver.getFlightById(1);
