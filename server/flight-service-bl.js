@@ -1,7 +1,7 @@
 const anonymousDao = require('../dao/anonymous-dao');
 const adminDao = require('../dao/admin-dao');
 const airlineDao = require('../dao/airline-dao');
-const { logAction } = require('./action-logger');
+const { logAction } = require('./loggers/action-logger');
 const { ACTIONS } = require('./const');
 const { updateUser } = require('../dao/admin-dao');
 

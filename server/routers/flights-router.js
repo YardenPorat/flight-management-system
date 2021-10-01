@@ -302,6 +302,39 @@ router.post('/', requireAuth, airlineController.insertFlight);
 
 /**
  * @swagger
+ * /flights:
+ *   put:
+ *     summary: Update a flight
+ *     tags: [Flights]
+ *     parameters:
+ *       - in: body
+ *         schema:
+ *           type: object
+ *           $ref: '#/components/schemas/Flight'
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               $ref: '#/components/schemas/Flight'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           html:
+ *             example: Please login
+ *       500:
+ *         description: Error
+ *         content:
+ *           application/json:
+ *               type: object
+ *               example: { "message": "Internal server error"}
+ */
+router.put('/', requireAuth, airlineController.updateFlight);
+
+/**
+ * @swagger
  * /flights/{id}:
  *   delete:
  *     summary: Delete flight by ID

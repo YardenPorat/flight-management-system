@@ -2,7 +2,8 @@ const newman = require('newman');
 const db = require('../../db-generator/db');
 const { resetDb } = require('../../db-generator/utils');
 const { sqlDate } = require('../../dao/utils');
-describe('anonymous-rest', function () {
+
+describe('admin-rest', function () {
     this.timeout(5_000);
 
     beforeEach(async function () {
@@ -23,7 +24,7 @@ describe('anonymous-rest', function () {
             select * from sp_insert_user('user4', '444444','44@g.com', 'customer');
             select * from sp_insert_user('user5', '555555','5@g.com', 'customer');
             select * from sp_insert_user('John Doe', 'pw1123','user1@1.com', 'customer');
-            select * from sp_insert_user('Jane Dow', 'pw2123','user2@1.com', 'customer');
+            select * from sp_insert_user('admin', 'admin','user2@1.com', 'admin');
             `.trim()
         );
         await db.raw(
@@ -53,12 +54,12 @@ describe('anonymous-rest', function () {
         );
     });
 
-    it('test name', async function () {
+    it('admin-controller', async function () {
         this.timeout(5_000);
         const runner = new Promise((resolve, reject) => {
             newman.run(
                 {
-                    collection: require('../postmen-exports/anonymous-test.postman_collection.json'),
+                    collection: require('../postmen-exports/admin-controller.postman_collection.json'),
                     reporters: 'cli',
                 },
                 function (err) {

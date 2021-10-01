@@ -12,7 +12,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"anonymous getAirlineById\", function () {",
+							"pm.test(\"getAirlineById\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.id).to.eql('2');",
 							"});"
@@ -33,6 +33,409 @@
 					"path": [
 						"airlines",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllAirlines",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getAllAirlines\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(4);",
+							"    pm.expect(jsonData[0]).to.eql( {",
+							"        \"id\": \"1\",",
+							"        \"name\": \"Airline1\",",
+							"        \"country_id\": 1,",
+							"        \"user_id\": \"1\"",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/airlines",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"airlines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insertCustomer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"insertCustomer\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql({\"customerId\": \"4\"});",
+							"    pm.expect(pm.response.code).to.eql(200)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"fname\",\n    \"lastName\": \"lname\",\n    \"address\": \"pt\",\n    \"phoneNo\": \"9\",\n    \"creditCardNo\": \"99\",\n    \"userId\": 4\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check-availability - free",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"check-availability\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql({\"isAvailable\": true});",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/users/check-availability/yarden2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"check-availability",
+						"yarden2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllFlights",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getAllFlights\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0]).to.eql({",
+							"        \"id\": \"1\",",
+							"        \"airline_id\": \"1\",",
+							"        \"origin_country_id\": 1,",
+							"        \"destination_country_id\": 2,",
+							"        \"departure_time\": \"2021-09-14T21:00:00.000Z\",",
+							"        \"landing_time\": \"2021-09-15T21:00:00.000Z\",",
+							"        \"remaining_tickets\": 50",
+							"    });",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/flights",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"flights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFlightsByAirlineId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getFlightsByAirlineId\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0]).to.eql({",
+							"        \"id\": \"1\",",
+							"        \"airline_id\": \"1\",",
+							"        \"origin_country_id\": 1,",
+							"        \"destination_country_id\": 2,",
+							"        \"departure_time\": \"2021-09-14T21:00:00.000Z\",",
+							"        \"landing_time\": \"2021-09-15T21:00:00.000Z\",",
+							"        \"remaining_tickets\": 50",
+							"    });",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"originCountryId\": 1, \"destinationCountryId\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/flights/by-airline/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"flights",
+						"by-airline",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFlightsByParameters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getFlightsByParameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0]).to.eql({",
+							"        \"id\": \"1\",",
+							"        \"airline_id\": \"1\",",
+							"        \"origin_country_id\": 1,",
+							"        \"destination_country_id\": 2,",
+							"        \"departure_time\": \"2021-09-14T21:00:00.000Z\",",
+							"        \"landing_time\": \"2021-09-15T21:00:00.000Z\",",
+							"        \"remaining_tickets\": 50",
+							"    });",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"originCountryId\": 1,\n    \"destinationCountryId\": 2,\n    \"date\": \"2021-09-15\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/flights/by-parameters",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"flights",
+						"by-parameters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getArrivalFlights (by countryId)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getArrivalFlights (by countryId)\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0]['id']).to.eq('2');",
+							"    pm.expect(jsonData[0]['airline_id']).to.eql('1');",
+							"    pm.expect(jsonData[0]['destination_country_id']).to.eql(3);",
+							"    pm.expect(jsonData[0]['remaining_tickets']).to.eql(100);",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"originCountryId\": 216,\n    \"destinationCountryId\": 219,\n    \"date\": \"2021-10-29\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/flights/arrivals/3",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"flights",
+						"arrivals",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDepartureFlights (by countryId)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getArrivalFlights (by countryId)\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0]['id']).to.eq('3');",
+							"    pm.expect(jsonData[0]['airline_id']).to.eql('2');",
+							"    pm.expect(jsonData[0]['origin_country_id']).to.eql(2);",
+							"    pm.expect(jsonData[0]['destination_country_id']).to.eql(3);",
+							"    pm.expect(jsonData[0]['remaining_tickets']).to.eql(100);",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"originCountryId\": 216,\n    \"destinationCountryId\": 219,\n    \"date\": \"2021-10-29\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/flights/departures/2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"flights",
+						"departures",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllCountries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getArrivalFlights (by countryId)\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0]).to.eql({",
+							"        \"id\": 1,",
+							"        \"name\": \"Israel\"",
+							"    });",
+							"    pm.expect(jsonData.length).to.eql(4);",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/countries",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"countries"
 					]
 				}
 			},

@@ -52,10 +52,11 @@ async function updateFlight({
     landingTime,
     remainingTickets,
 }) {
+    const departureSqlTime = departureTime.includes('T') ? departureTime : sqlDate(departureTime);
+    const landingSqlTime = landingTime.includes('T') ? landingTime : sqlDate(landingTime);
     const result = await db.raw(
-        `select * from sp_update_flight(${id}, ${airlineId}, ${originCountryId}, ${destinationCountryId}, '${sqlDate(
-            departureTime
-        )}', '${sqlDate(landingTime)}', ${remainingTickets} );`
+        `select * from sp_update_flight(${id}, ${airlineId}, ${originCountryId},
+        ${destinationCountryId}, '${departureSqlTime}', '${landingSqlTime}', ${remainingTickets} );`
     );
     return result['rows'][0];
 }
