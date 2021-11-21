@@ -5,7 +5,7 @@ const router = Router();
 /**
  * @swagger
  * /login:
- *   get:
+ *   post:
  *     summary: Login the users
  *     tags: [Auth]
  *     responses:
@@ -24,7 +24,7 @@ const router = Router();
  *               type: object
  *               example: { "message": "Invalid username or password"}
  */
-router.get('/login', loginController.login);
+router.post('/login', loginController.login);
 /**
  * @swagger
  * /logout:

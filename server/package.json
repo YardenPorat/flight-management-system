@@ -1,0 +1,28 @@
+{
+  "name": "aeroflight-server",
+  "version": "1.0.0",
+  "description": "flight management system",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=test nodemon app.js",
+    "run": "node app.js",
+    "db-generator": "cross-env NODE_ENV=test node db-generator/index.js",
+    "test": "cross-env NODE_ENV=test run-s test:dao-bl test:rest",
+    "test:dao-bl": "mocha \"test/*.test.js\"",
+    "test:rest": "mocha \"test/rest/*.test.js\""
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.13"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yardenporat/flight-management-system.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yardenporat/flight-management-system/issues"
+  },
+  "homepage": "https://github.com/yardenporat/flight-management-system#readme"
+}

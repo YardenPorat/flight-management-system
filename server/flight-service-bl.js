@@ -1,9 +1,9 @@
-const anonymousDao = require('../dao/anonymous-dao');
-const adminDao = require('../dao/admin-dao');
-const airlineDao = require('../dao/airline-dao');
-const { logAction } = require('./loggers/action-logger');
+const adminDao = require('./dao/admin-dao');
+const airlineDao = require('./dao/airline-dao');
+const anonymousDao = require('./dao/anonymous-dao');
 const { ACTIONS } = require('./const');
-const { updateUser } = require('../dao/admin-dao');
+const { logAction } = require('./loggers/action-logger');
+const { updateUser } = require('./dao/admin-dao');
 
 async function deleteAirline(data) {
     const { id } = JSON.parse(data);
