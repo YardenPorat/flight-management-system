@@ -20,14 +20,13 @@ async function login(req, res) {
         const token = createToken(user.id, user.role);
         const tokenAge = user.role === 'admin' ? 99999999999999999999999999 : maxAge * 1000;
         res.cookie('jwt', token, { httpOnly: true, maxAge: tokenAge });
-        res.status(201).json({ user: user.id });
+        res.status(201).json({ userId: user.id, username: user.name });
     }
 }
 
 async function logout(req, res) {
     res.cookie('jwt', '', { maxAge: 1 });
-    // res.redirect('/');
-    res.send('Logged out');
+    res.status(200).json({ logged_out: true });
 }
 
 module.exports = { login, logout };

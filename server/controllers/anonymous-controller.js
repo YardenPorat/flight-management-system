@@ -93,6 +93,16 @@ async function getFlightsByParameters(req, res) {
     }
 }
 
+async function getFlightsByCountries(req, res) {
+    try {
+        const flights = await bl.getFlightsByCountries(JSON.stringify(req.body));
+        await res.status(200).json(flights);
+    } catch (err) {
+        logError('getFlightsByCountries', JSON.stringify(err));
+        await res.status(500).json({ message: err.message });
+    }
+}
+
 async function getArrivalFlights(req, res) {
     const { countryId } = req.params;
     try {
@@ -127,4 +137,5 @@ module.exports = {
     getFlightsByParameters,
     getArrivalFlights,
     getAllCountries,
+    getFlightsByCountries,
 };

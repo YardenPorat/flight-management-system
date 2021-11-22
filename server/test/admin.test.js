@@ -220,7 +220,7 @@ describe('test admin user dao', () => {
         expect(flights[0]['id']).to.equal('1');
         expect(flights[0]['airline_id']).to.equal('1');
         expect(flights[0]['origin_country_id']).to.equal(1);
-        expect(flights[0]['remaining_tickets']).to.equal(50);
+        expect(flights[0]['remaining_tickets']).to.equal(48);
     });
     it('get all tickets', async () => {
         const tickets = await adminDriver.getAllTickets();

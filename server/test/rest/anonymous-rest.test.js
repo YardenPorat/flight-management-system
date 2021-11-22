@@ -2,6 +2,7 @@ const newman = require('newman');
 const db = require('../../db-generator/db');
 const { resetDb } = require('../../db-generator/utils');
 const { sqlDate } = require('../../dao/utils');
+
 describe('anonymous-rest', function () {
     this.timeout(5_000);
 
@@ -58,7 +59,7 @@ describe('anonymous-rest', function () {
         const runner = new Promise((resolve, reject) => {
             newman.run(
                 {
-                    collection: require('../postmen-exports/anonymous-test.postman_collection.json'),
+                    collection: require('../postmen-exports/anonymous-controller.postman_collection.json'),
                     reporters: 'cli',
                 },
                 function (err) {

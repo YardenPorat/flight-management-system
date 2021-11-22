@@ -22,7 +22,8 @@ async function init() {
 const randomDate = () => {
     const now = new Date();
     const year = now.getFullYear();
-    const month = getRandom(0, 11);
+    const currentMonth = now.getMonth();
+    const month = getRandom(currentMonth, 11);
     const daysInMonth = new Date(year, month, 0).getDate();
     const day = getRandom(1, daysInMonth);
     const hours = getRandom(1, 24);
@@ -52,9 +53,10 @@ async function generateUsersAndCustomers() {
 
         let i = 0;
         for (const { name, login, email, location, phone } of response.data.results) {
-            const result = await db.raw(
-                `select * from sp_insert_user('${login.username}', '${login.password}', '${email}', 'user');`
-            );
+            const query = `select * from sp_insert_user('${login.username}', '${login.password}', '${email}', '${
+                i <= scale.customers ? 'customer' : 'user'
+            }');`;
+            const result = await db.raw(query);
             if (++i <= scale.customers) {
                 const userId = result.rows[0]['sp_insert_user'];
 
@@ -90,8 +92,9 @@ const generateFlights = async (totalCountries) => {
     let totalFlights = 0;
     try {
         for (let airlineId = 1; airlineId <= scale.airlines; airlineId++) {
-            const maxFlightsPerAirline = getRandom(0, scale.flights_per_airline);
-            for (let j = 0; j < maxFlightsPerAirline; j++) {
+            const maxFlightsPerAirline = scale.flights_per_airline;
+            const airlineFlightCount = getRandom(parseInt(maxFlightsPerAirline / 2), maxFlightsPerAirline);
+            for (let j = 0; j < airlineFlightCount; j++) {
                 const originCountryId = getRandom(1, totalCountries);
                 const destinationCountryId = getRandom(1, totalCountries);
                 const remainingTickets = getRandom(0, scale.tickets_per_flight);
@@ -127,8 +130,10 @@ async function generateTickets(totalFlights) {
     }
 }
 
-function getRandom(from, to) {
-    return Math.floor(Math.random() * to) + from;
+function getRandom(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function convertToSqlDate(date) {

@@ -153,6 +153,20 @@ async function getFlightsByParameters(data) {
     return flights;
 }
 
+async function getFlightsByCountries(data) {
+    const { originCountryId, destinationCountryId } = JSON.parse(data);
+    const originCountryExist = await anonymousDao.getCountryById(originCountryId);
+    if (!originCountryExist) {
+        return new Error(`Origin country id doesn't exist`);
+    }
+    const destinationCountryExist = await anonymousDao.getCountryById(destinationCountryId);
+    if (!destinationCountryExist) {
+        return new Error(`Destination country id doesn't exist`);
+    }
+    const flights = await anonymousDao.getFlightsByCountries(originCountryId, destinationCountryId);
+    return flights;
+}
+
 async function getTicketsByCustomerId(data) {
     const { customerId } = JSON.parse(data);
     const customerExist = await anonymousDao.getCustomerById(customerId);
@@ -209,10 +223,25 @@ async function insertFlight(data) {
 }
 
 async function insertTicket(data) {
-    const { flightId, customerId } = JSON.parse(data);
-    const flightExist = await anonymousDao.getFlightById(flightId);
-    if (!flightExist) {
+    let { flightId, customerId } = JSON.parse(data);
+    const flight = await anonymousDao.getFlightById(flightId);
+    if (!flight) {
         return new Error(`Flight id doesn't exist`);
+    }
+    if (flight.remaining_tickets == 0) {
+        throw new Error(`Can't purchase because there are no remaining tickets on this flight`);
+    }
+
+    let customerTickets;
+    if (customerId) {
+        customerTickets = await getTicketsByCustomerId(JSON.stringify({ customerId }));
+    } else {
+        const customer = await getCustomerByUsername(data);
+        customerId = customer.id;
+        customerTickets = await getTicketsByCustomerId(JSON.stringify({ customerId: customer.id }));
+    }
+    if (customerTickets.some((ticket) => ticket.flight_id == flightId)) {
+        throw new Error('Customer already have a ticket on this flight');
     }
     await logAction(ACTIONS.insertTicket, data);
     const result = await airlineDao.insertTicket(flightId, customerId);
@@ -289,4 +318,5 @@ module.exports = {
     insertTicket,
     deleteTicket,
     getAllCountries,
+    getFlightsByCountries,
 };

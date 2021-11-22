@@ -1,4 +1,4 @@
-const app = require('../../server/http-server');
+const app = require('../../http-server');
 const PORT = 3000;
 
 const server = app.listen(PORT, () => {

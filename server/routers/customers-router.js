@@ -113,6 +113,8 @@ const router = Router();
  */
 router.get('/:id', requireAuth, customerController.getCustomerById);
 
+router.post('/get-customer-by-username', requireAuth, customerController.getCustomerByUsername);
+
 /**
  * @swagger
  * /customers:

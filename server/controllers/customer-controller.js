@@ -8,10 +8,21 @@ async function getCustomerById(req, res) {
     try {
         isAuthorized(res.locals.token.role, CUSTOMER);
         const id = req.params.id;
-        const airline = await bl.getCustomerById(JSON.stringify({ id }));
-        await res.status(200).json(airline);
+        const customer = await bl.getCustomerById(JSON.stringify({ id }));
+        await res.status(200).json(customer);
     } catch (err) {
         logError('getCustomerById', JSON.stringify(err));
+        await res.status(500).json({ message: err.message });
+    }
+}
+
+async function getCustomerByUsername(req, res) {
+    try {
+        isAuthorized(res.locals.token.role, CUSTOMER);
+        const customer = await bl.getCustomerByUsername(JSON.stringify(req.body));
+        await res.status(200).json(customer);
+    } catch (err) {
+        logError('getCustomerByUsername', JSON.stringify(err));
         await res.status(500).json({ message: err.message });
     }
 }
@@ -61,4 +72,11 @@ async function updateCustomer(req, res) {
     }
 }
 
-module.exports = { getCustomerById, getTicketsByCustomerId, insertTicket, deleteTicket, updateCustomer };
+module.exports = {
+    getCustomerById,
+    getTicketsByCustomerId,
+    insertTicket,
+    deleteTicket,
+    getCustomerByUsername,
+    updateCustomer,
+};

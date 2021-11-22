@@ -12,11 +12,9 @@ export function AuthProvider({ children }) {
     return userId;
   };
 
-  const signOut = (callback) => {
-    return dbAuthProvider.signOut(() => {
-      setUser(null);
-      callback();
-    });
+  const signOut = async () => {
+    await dbAuthProvider.signOut();
+    setUser(null);
   };
 
   const value = { user, signIn, signOut };

@@ -73,6 +73,14 @@ async function getFlightsByParameters(originCountryId, destinationCountryId, dat
     );
     return result['rows'];
 }
+
+async function getFlightsByCountries(originCountryId, destinationCountryId) {
+    const result = await db.raw(
+        `select * from sp_get_flights_by_countries('${originCountryId}', '${destinationCountryId}');`
+    );
+    return result['rows'];
+}
+
 async function getTicketById(id) {
     const result = await db.raw(`select * from sp_get_ticket_by_id('${id}');`);
     return result['rows'][0];
@@ -110,4 +118,5 @@ module.exports = {
     getFlightsByParameters,
     getFlightsByAirlineId,
     getFlightById,
+    getFlightsByCountries,
 };

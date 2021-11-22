@@ -1,0 +1,4 @@
+.root {
+  height: 100vh;
+  background: url('./components/home/hero.jpeg') center center / cover no-repeat;
+}

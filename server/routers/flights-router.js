@@ -102,7 +102,7 @@ router.get('/by-airline/:id', anonymousController.getFlightsByAirlineId);
 /**
  * @swagger
  * /flights/by-parameters:
- *   get:
+ *   post:
  *     summary: Get flights by parameters
  *     tags: [Flights]
  *     parameters:
@@ -130,7 +130,40 @@ router.get('/by-airline/:id', anonymousController.getFlightsByAirlineId);
  *               type: object
  *               example: { "message": "Internal server error"}
  */
-router.get('/by-parameters', anonymousController.getFlightsByParameters);
+router.post('/by-parameters', anonymousController.getFlightsByParameters);
+
+/**
+ * @swagger
+ * /flights/by-countries:
+ *   post:
+ *     summary: Get flights by parameters
+ *     tags: [Flights]
+ *     parameters:
+ *       - in: body
+ *         schema:
+ *           $ref: '#/components/schemas/FlightByParams'
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Flight'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           html:
+ *             example: Please login
+ *       500:
+ *         description: Error
+ *         content:
+ *           application/json:
+ *               type: object
+ *               example: { "message": "Internal server error"}
+ */
+router.post('/by-countries', anonymousController.getFlightsByCountries);
 
 /**
  * @swagger

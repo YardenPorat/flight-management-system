@@ -1,0 +1,30 @@
+.root {
+  height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  background-color: rgba(255, 255, 255, 0.3);
+  height: 300px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.title {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1875d2;
+  font-weight: 700;
+  font-size: 30px;
+  /* background-color: #1875d266; */
+  padding: 10px 0;
+}
+
+.button {
+  opacity: 0.7;
+}

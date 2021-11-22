@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "c2de3f6d-5257-41ee-bacd-4db1bcb8a2c6",
-		"name": "anonymous-test",
+		"name": "anonymous-controller",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -162,15 +162,12 @@
 						"exec": [
 							"pm.test(\"getAllFlights\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData[0]).to.eql({",
-							"        \"id\": \"1\",",
-							"        \"airline_id\": \"1\",",
-							"        \"origin_country_id\": 1,",
-							"        \"destination_country_id\": 2,",
-							"        \"departure_time\": \"2021-09-14T21:00:00.000Z\",",
-							"        \"landing_time\": \"2021-09-15T21:00:00.000Z\",",
-							"        \"remaining_tickets\": 50",
-							"    });",
+							"    const flight = jsonData.filter(flight => flight.id == '3')[0]",
+							"    pm.expect(flight['id']).to.eql(\"3\");",
+							"    pm.expect(flight['airline_id']).to.eql(\"2\");",
+							"    pm.expect(flight['origin_country_id']).to.eql(2);",
+							"    pm.expect(flight['destination_country_id']).to.eql(3);",
+							"    pm.expect(flight['remaining_tickets']).to.eql(100);",
 							"    pm.expect(pm.response.code).to.eql(200);",
 							"});"
 						],
@@ -203,15 +200,12 @@
 						"exec": [
 							"pm.test(\"getFlightsByAirlineId\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData[0]).to.eql({",
-							"        \"id\": \"1\",",
-							"        \"airline_id\": \"1\",",
-							"        \"origin_country_id\": 1,",
-							"        \"destination_country_id\": 2,",
-							"        \"departure_time\": \"2021-09-14T21:00:00.000Z\",",
-							"        \"landing_time\": \"2021-09-15T21:00:00.000Z\",",
-							"        \"remaining_tickets\": 50",
-							"    });",
+							"    const flight = jsonData.filter(flight => flight.id == '2')[0]",
+							"    pm.expect(flight[\"id\"], 'id').to.eql(\"2\");",
+							"    pm.expect(flight[\"airline_id\"],'airline_id').to.eql(\"1\");",
+							"    pm.expect(flight[\"origin_country_id\"]).to.eql(1);",
+							"    pm.expect(flight[\"destination_country_id\"]).to.eql(3);",
+							"    pm.expect(flight[\"remaining_tickets\"]).to.eql(100);",
 							"    pm.expect(pm.response.code).to.eql(200);",
 							"});"
 						],
@@ -258,15 +252,13 @@
 						"exec": [
 							"pm.test(\"getFlightsByParameters\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData[0]).to.eql({",
-							"        \"id\": \"1\",",
-							"        \"airline_id\": \"1\",",
-							"        \"origin_country_id\": 1,",
-							"        \"destination_country_id\": 2,",
-							"        \"departure_time\": \"2021-09-14T21:00:00.000Z\",",
-							"        \"landing_time\": \"2021-09-15T21:00:00.000Z\",",
-							"        \"remaining_tickets\": 50",
-							"    });",
+							"    pm.expect(jsonData[0][\"id\"]).to.eql(\"1\");",
+							"    pm.expect(jsonData[0][\"airline_id\"]).to.eql(\"1\");",
+							"    pm.expect(jsonData[0][\"origin_country_id\"]).to.eql(1);",
+							"    pm.expect(jsonData[0][\"destination_country_id\"]).to.eql(2);",
+							"    pm.expect(jsonData[0][\"departure_time\"]).to.eql(\"2021-09-14T21:00:00.000Z\");",
+							"    pm.expect(jsonData[0][\"landing_time\"]).to.eql(\"2021-09-15T21:00:00.000Z\");",
+							"    pm.expect(jsonData[0][\"remaining_tickets\"]).to.eql(48);",
 							"    pm.expect(pm.response.code).to.eql(200);",
 							"});"
 						],
@@ -274,11 +266,8 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
