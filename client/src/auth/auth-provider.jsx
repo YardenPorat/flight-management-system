@@ -7,9 +7,13 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   const signIn = async (userData) => {
-    const userId = await dbAuthProvider.signIn(userData);
-    setUser(userId);
-    return userId;
+    const user = await dbAuthProvider.signIn(userData);
+    if (user.userId) {
+      setUser(user);
+      return user.userId;
+    } else {
+      throw new Error(user.message);
+    }
   };
 
   const signOut = async () => {

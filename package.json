@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "run-p start:server start:client",
+    "run": "run-p run:server start:client",
     "start:server": "npm run start --prefix server",
-    "start:client": "npm run start --prefix client"
+    "run:server": "npm run run --prefix server",
+    "start:client": "npm run start --prefix client",
+    "generate:db": "npm run generate:db --prefix server"
   },
   "repository": {
     "type": "git",

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=test nodemon app.js",
     "run": "node app.js",
-    "db-generator": "cross-env NODE_ENV=test node db-generator/index.js",
+    "generate:db": "node db-generator/index.js",
     "test": "cross-env NODE_ENV=test run-s test:dao-bl test:rest",
     "test:dao-bl": "cross-env NODE_ENV=test mocha \"test/*.test.js\"",
     "test:rest": "cross-env NODE_ENV=test mocha \"test/rest/*.test.js\""

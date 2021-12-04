@@ -6,7 +6,7 @@ async function tryLogin(username, password) {
         return user;
     }
     if (user.password !== password) {
-        throw Error('incorrect password');
+        return Error('incorrect password');
     }
     return user;
 }

@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
+import { BasicModal } from '../modal/modal';
 import { useAuth } from '../../auth/auth-provider';
+import Typography from '@mui/material/Typography';
 import classes from './login.module.css';
 import Button from '@mui/material/Button';
 
@@ -9,6 +11,8 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const auth = useAuth();
+  const [modal, setModal] = useState({ header: 'Alert', content: <></> });
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -16,12 +20,38 @@ const Login = () => {
     if (username && password) {
       try {
         await auth.signIn({ username, password });
-        navigate('/');
+        navigate('/search');
       } catch (e) {
-        // alert(`Error while trying to login:\n${e.message}`);
+        setModal({
+          header: 'Error',
+          content: (
+            <>
+              <Typography sx={{ mt: 2 }}>
+                Error while trying to login:
+                <br />
+                {e.message}
+              </Typography>
+              <Button sx={{ mt: 2 }} variant='contained' onClick={() => setOpen(false)}>
+                OK
+              </Button>
+            </>
+          ),
+        });
+        setOpen(true);
       }
     } else {
-      alert('missing username or password');
+      setModal({
+        header: 'Missing inputs',
+        content: (
+          <>
+            <Typography sx={{ mt: 2 }}>Missing username or password</Typography>
+            <Button sx={{ mt: 2 }} variant='contained' onClick={() => setOpen(false)}>
+              OK
+            </Button>
+          </>
+        ),
+      });
+      setOpen(true);
     }
   };
 
@@ -57,6 +87,7 @@ const Login = () => {
           Login
         </Button>
       </form>
+      {open && <BasicModal header={modal.header} content={modal.content} setOpen={setOpen} />}
     </div>
   );
 };
