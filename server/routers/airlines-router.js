@@ -180,7 +180,7 @@ router.put('/', requireAuth, airlineController.updateAirline);
  * /airlines/{id}:
  *   delete:
  *     summary: Delete airline by ID
- *     tags: [Airline]
+ *     tags: [Airlines]
  *     parameters:
  *       - in: path
  *         name: id

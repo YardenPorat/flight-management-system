@@ -40,6 +40,6 @@
         }
       ]
     },
-    "apis": ["./server/routers/*.js"]
+    "apis": ["./routers/*.js"]
   }
 }

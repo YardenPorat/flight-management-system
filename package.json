@@ -9,7 +9,8 @@
     "start:server": "npm run start --prefix server",
     "run:server": "npm run run --prefix server",
     "start:client": "npm run start --prefix client",
-    "generate:db": "npm run generate:db --prefix server"
+    "generate:db": "npm run generate:db --prefix server",
+    "test": "npm run test --prefix server"
   },
   "repository": {
     "type": "git",
